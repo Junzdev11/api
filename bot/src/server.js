@@ -4,7 +4,7 @@ app = require('../../server'),
 { resolve } = require("path"),
 { parse } = JSON,
 appState = parse(read('appstate.json', 'utf8'));
-require("./fca").login({ appState }, async (err, api) => {
+require("./fca/index").login({ appState }, async (err, api) => {
     if (err) return console.error(err);
     console.log("Logged in!");
     load(resolve(__dirname + "/module" + "/command")).forEach(command => {
