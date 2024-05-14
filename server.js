@@ -1,4 +1,3 @@
-require("./bot/src/server");
 const app = require("express")();
 async function restart() {
   console.log('Restarting...');
