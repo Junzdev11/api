@@ -1,9 +1,9 @@
+var path = require("path");
+var fs = require("fs");
 const cooldowns = {};
 const load = (dir) => {
-  return require("fs")
-    .readdirSync(dir)
-    .map((f) => {
-      const file = require("path").join(dir, f);
+  return fs.readdirSync(dir).map((f) => {
+ const file = path.join(dir, f);
       try {
         return require(file);
       } catch (error) {
@@ -12,9 +12,7 @@ const load = (dir) => {
     })
     .filter(Boolean);
 };
-const cmdName = dir => {
-  return load(dir).map(c => c.name);
-};
+
 const create = (command) => async (api, event) => {
   const cooldownTime = command.cooldown || 0; 
   const now = Date.now();
@@ -30,9 +28,44 @@ const create = (command) => async (api, event) => {
     cooldowns[command.name] = now + cooldownTime * 1000; 
   }
 };
+function help() {
+  const f = path.join(__dirname, 'command');
+  const files = fs.readdirSync(f);
+  const cmd = [];
+  files.forEach(file => {
+    const filePath = path.join(f, file);
+    if (fs.lstatSync(filePath).isFile()) {
+      const filee = require(filePath);
+      if (filee && filee.name) {
+        cmd.push(filee.name);
+      }
+    }
+  });
+  let result = "Here's all available commands:\n";
+  cmd.forEach((name, i) => {
+    result += `${i + 1}. ${name}\n`;
+  });
 
+  return result;
+}
+
+async function cmdHelp(cmd) {
+    const cpath = path.join(__dirname, 'command');
+    const files = fs.readdirSync(cpath);
+    for (const file of files) {
+        const filee = path.join(cpath, file);
+        const command = require(filee);
+        if (command.name === cmd) {
+    return `Name: ${command.name}
+Author: ${command.author || ""}
+Description: ${command.description || ""}`;
+        }
+    }
+    return `Command ${cmd} doesn't exist`;
+}
 module.exports = {
   load,
   create,
-cmdName
+help,
+cmdHelp
 };
