@@ -30,22 +30,25 @@ const create = (command) => async (api, event) => {
 };
 function help() {
   const f = path.join(__dirname, 'command');
-    const files = fs.readdirSync(f);
-    const cmd = [];
+  const files = fs.readdirSync(f);
+  const cmd = [];
   files.forEach(file => {
-   const file = path.join(f, file);
-        if (fs.lstatSync(file).isFile()) {
-    const filee = require(file);
-    if (filee && filee.name) {
-     cmd.push(filee.name);
-            }
-        }
-    });
-    let result = "Here's all available commands:\n";   cmd.forEach((name, i) => {
-        result += `${i + 1}. ${name}\n`;
-    });
- return results;
+    const filePath = path.join(f, file);
+    if (fs.lstatSync(filePath).isFile()) {
+      const filee = require(filePath);
+      if (filee && filee.name) {
+        cmd.push(filee.name);
+      }
+    }
+  });
+  let result = "Here's all available commands:\n";
+  cmd.forEach((name, i) => {
+    result += `${i + 1}. ${name}\n`;
+  });
+
+  return result;
 }
+
 module.exports = {
   load,
   create,
