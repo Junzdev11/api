@@ -197,8 +197,8 @@ function buildAPI(globalOptions, html, jar) {
                 'getThreadPictures',
                 'getUserID',
                 'getUserInfo',
-                'handleFriendRequest',
-                'handleMessageRequest',
+               // 'handleFriendRequest',
+               // 'handleMessageRequest',
                 'listenMqtt',
                 'logout',
                 'markAsDelivered',
@@ -225,7 +225,7 @@ function buildAPI(globalOptions, html, jar) {
                 'httpPost',
                 'httpPostFormData',
 
-                'uploadAttachment'
+                //'uploadAttachment'
         ];
 
         const defaultFuncs = utils.makeDefaults(html, i_userID || userID, ctx);
