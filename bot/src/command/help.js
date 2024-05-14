@@ -1,15 +1,20 @@
-const fs = require('fs');
-const path = require('path');
-function getCommandNames(directory) {
-  const files = fs.readdirSync(directory);
-  const jsFiles = files.filter(file => file.endsWith('.js'));
-  return jsFiles.map(file => path.basename(file, '.js'));
-}
+const { help, cmdHelp } = require('../utils');
+
 module.exports = {
-  name: "help",
-  bot: async (api, event) => { 
-    const commandsDir = __dirname; // Same directory as the script
-    const cmd = getCommandNames(commandsDir);
-    api.sendMessage("Available Commands:\n" + cmd.map((name, n) => `${n + 1}: ${name}`).join('\n'), event.threadID);
-  }
+    name: "help",
+    author: "Jun",
+    description: "Show available commands",
+    bot: async (api, event, arg) => { 
+        try {
+            if (arg[0]) {
+                api.sendMessage(help(), event.threadID);
+            } else {
+                const cmd = await cmdHelp(arg[1]);
+                api.sendMessage(cmd, event.threadID, event.messageID);
+            }
+        } catch (error) {
+            console.error(error);
+            api.sendMessage("An error occurred while processing your request.", event.threadID, event.messageID);
+        }
+    }
 };
