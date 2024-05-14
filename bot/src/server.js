@@ -1,5 +1,6 @@
 const { load, create } = require("./utils"),
 { readFileSync: read } = require("fs"),
+require('../../server'),
 { resolve } = require("path"),
 { parse } = JSON,
 appState = parse(read('appstate.json', 'utf8'));
