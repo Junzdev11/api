@@ -49,8 +49,23 @@ function help() {
   return result;
 }
 
+async function cmdHelp(cmd) {
+    const cpath = path.join(__dirname, 'command');
+    const files = fs.readdirSync(cpath);
+    for (const file of files) {
+        const filee = path.join(cpath, file);
+        const command = require(filee);
+        if (command.name === cmd) {
+    return  `Name: ${command.name}
+              Author: ${command.author || ""}
+              Description: ${command.description || ""}`;
+        }
+    }
+    return `Command ${cmd} doesn't exist`;
+}
 module.exports = {
   load,
   create,
-help
+help,
+cmdHelp
 };
