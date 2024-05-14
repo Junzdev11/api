@@ -1,4 +1,4 @@
-const { load, create } = require("../../utils"),
+const { load, create } = require("../utils"),
 { readFileSync: read } = require("fs"),
 app = require('../../server'),
 { resolve } = require("path"),
