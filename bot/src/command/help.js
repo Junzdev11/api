@@ -6,10 +6,10 @@ module.exports = {
     description: "Show available commands",
     bot: async (api, event, arg) => { 
         try {
-            if (arg[0]) {
+            if (arg.length === 0) {
                 api.sendMessage(help(), event.threadID);
             } else {
-                const cmd = await cmdHelp(arg[1]);
+                const cmd = await cmdHelp(arg[0]);
                 api.sendMessage(cmd, event.threadID, event.messageID);
             }
         } catch (error) {
