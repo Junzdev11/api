@@ -7,14 +7,13 @@ module.exports = {
     bot: async (api, event, arg) => { 
         try {
             if (arg.length === 0) {
-                api.sendMessage(help(), event.threadID);
-            } else {
-                const cmd = await cmdHelp(arg[0]);
-                api.sendMessage(cmd, event.threadID, event.messageID);
+return api.sendMessage(help(), event.threadID);
+          } else {
+        const cmd = await cmdHelp(arg[0]);
+              return  api.sendMessage(cmd, event.threadID, event.messageID);
             }
-        } catch (error) {
-            console.error(error);
-            api.sendMessage("An error occurred while processing your request.", event.threadID, event.messageID);
+        } catch (error) {         
+ return api.sendMessage(error.message, event.threadID, event.messageID);
         }
     }
 };
