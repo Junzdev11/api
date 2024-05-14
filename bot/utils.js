@@ -56,9 +56,9 @@ async function cmdHelp(cmd) {
         const filee = path.join(cpath, file);
         const command = require(filee);
         if (command.name === cmd) {
-    return  `Name: ${command.name}
-              Author: ${command.author || ""}
-              Description: ${command.description || ""}`;
+    return `Name: ${command.name}
+Author: ${command.author || ""}
+Description: ${command.description || ""}`;
         }
     }
     return `Command ${cmd} doesn't exist`;
