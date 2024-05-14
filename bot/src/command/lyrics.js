@@ -14,7 +14,7 @@ module.exports = {
   
         api.sendMessage({
           body: `Title: ${title}\nArtist: ${artist}\n\n${lyrics}`,
-          attachment: await stream(image)
+          attachment: await stream(image),
         }, threadID, messageID);
       } catch (e) {
         api.sendMessage(e.message, threadID, messageID);
