@@ -1,5 +1,5 @@
 const axios = require("axios");
-
+const { stream } = require ("../utils");
 module.exports = {
   name: "lyrics",
   bot: async (api, event, arg) => {
@@ -11,10 +11,10 @@ module.exports = {
       try {
         const resp = await axios.get(`https://lyrist.vercel.app/api/${srh}`);
         const { title, artist, lyrics, image } = resp.data;
-        const img = await axios.get(image, { responseType: "stream" });
+  
         api.sendMessage({
           body: `Title: ${title}\nArtist: ${artist}\n\n${lyrics}`,
-          attachment: img.data,
+          attachment: await stream(image)
         }, threadID, messageID);
       } catch (e) {
         api.sendMessage(e.message, threadID, messageID);
