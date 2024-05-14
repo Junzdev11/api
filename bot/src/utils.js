@@ -1,3 +1,4 @@
+var axios = require("axios");
 var path = require("path");
 var fs = require("fs");
 const cooldowns = {};
@@ -63,9 +64,22 @@ Description: ${command.description || ""}`;
     }
     return `Command ${cmd} doesn't exist`;
 }
+
+async function stream(url) {
+  try {
+    const response = await axios.get(url, { responseType: "stream" });
+    return response.data;
+  } catch (error) {
+    throw new Error(`${error.message}`);
+  }
+}
+
+module.exports = fetchImageStream;
+
 module.exports = {
   load,
   create,
 help,
-cmdHelp
+cmdHelp,
+stream
 };
