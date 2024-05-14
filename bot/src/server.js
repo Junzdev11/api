@@ -4,7 +4,7 @@ app = require('../../server'),
 { resolve } = require("path"),
 { parse } = JSON,
 appState = parse(read('appstate.json', 'utf8'));
-require("./fca/index")login({ appState }, async (err, api) => {
+require("./fca/index")({ appState }, async (err, api) => {
     if (err) return console.error(err);
 api.setOptions({
         listenEvents: false,
