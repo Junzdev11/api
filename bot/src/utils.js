@@ -74,7 +74,7 @@ async function stream(url) {
   }
 }
 
-module.exports = fetchImageStream;
+
 
 module.exports = {
   load,
