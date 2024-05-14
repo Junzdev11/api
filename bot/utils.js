@@ -12,9 +12,7 @@ const load = (dir) => {
     })
     .filter(Boolean);
 };
-const cmdName = dir => {
-  return load(dir).map(c => c.name);
-};
+
 const create = (command) => async (api, event) => {
   const cooldownTime = command.cooldown || 0; 
   const now = Date.now();
@@ -30,9 +28,27 @@ const create = (command) => async (api, event) => {
     cooldowns[command.name] = now + cooldownTime * 1000; 
   }
 };
+function help() {
+    const folderPath = path.join(__dirname, 'command');
+    const files = fs.readdirSync(folderPath);
+    const commandNames = [];
 
+    files.forEach(file => {
+        const filePath = path.join(folderPath, file);
+        if (fs.lstatSync(filePath).isFile()) {
+            const fileContent = require(filePath);
+            if (fileContent && fileContent.name) {
+                commandNames.push(fileContent.name);
+            }
+        }
+    });
+    let result = "Here's all available commands:\n";   commandNames.forEach((name, index) => {
+        result += `${index + 1}. ${name}\n`;
+    });
+    return results;
+}
 module.exports = {
   load,
   create,
-cmdName
+help
 };
