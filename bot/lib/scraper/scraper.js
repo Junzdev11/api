@@ -1,3 +1,5 @@
+const yt_search = require("yt-search");
+
 async function ytm(m) {
     try {
 const search = await yt_search(m);
