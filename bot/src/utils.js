@@ -25,7 +25,7 @@ const create = (command) => async (api, event) => {
   }
   if (event.body?.toLowerCase()?.startsWith(command.name.toLowerCase())) {
     const arg = event.body.split(" ").slice(1);
-    await command.bot(api, event, arg);
+     command.bot(api, event, arg);
     cooldowns[command.name] = now + cooldownTime * 1000; 
   }
 };
