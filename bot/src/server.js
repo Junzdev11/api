@@ -18,7 +18,7 @@ api.setOptions({
     load(resolve(__dirname, "./command")).forEach(command => {
    api.listenMqtt(async (err, event) => {
     if (err) return console.error(err);
-    await create(command)(api, event);
+    create(command)(api, event);
         });
     });
 });
