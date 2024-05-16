@@ -1,7 +1,7 @@
 const { parse } = JSON;
 const fs = require('fs');
 const path = require('path');
-const bot = require("./load")();
+const bot = require("./load").load();
 const express = require('express');
 const app = express();
 const appState = parse(fs.readFileSync(path.join(__dirname, 'appstate.json'), 'utf8'));
