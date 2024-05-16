@@ -24,7 +24,7 @@ const pr = prx.split(" ")[0];
 const arg = prx.split(" ").slice(1);
 const name = async (id) => (await api.getUserInfo(id))[id].name;
         if (bot[pr]) {
-            bot[pr].load(api, event, arg, name, send);
+            bot[pr].load({api, event, arg, name, send});
         }
     });
 });
