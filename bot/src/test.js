@@ -29,7 +29,7 @@ const name = async (id) => (await api.getUserInfo(id))[id].name;
     });
 });
 app.get('/', (req, res) => {
-    res.send('<html><body><h1>Server is live</h1></body></html>');
+res.send('<html><body><h1>this is a test only</h1></body></html>');
 });
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
