@@ -17,8 +17,9 @@ fca({ appState }, async (err, api) => {
             return;
         }
 var pr = (event.body ? event.body.toLowerCase() : "").split(" ")[0];
+const arg = event.body.split(" ").slice(1);
         if (bot[pr]) {
-            bot[pr].start(api, event);
+            bot[pr].start(api, event, arg);
         }
     });
 });
