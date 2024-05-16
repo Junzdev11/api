@@ -1,6 +1,8 @@
 const axios = require("axios");
 module.exports = {
   name: "ai",
+author: "Jun",
+description: "Ask an ai",
   start: async (api, event, arg) => {
     const { messageID, threadID, senderID } = event; 
     try {
