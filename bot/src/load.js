@@ -14,10 +14,10 @@ const load = async () => {
                     if (cmd.load) {
                         commands[cmd.name] = cmd;
                     } else {
-                        console.log(`\x1b[32mCommand ${cmd.name} is missing the load function.`);
+                        console.log(`\x1b[32mCommand ${cmd.name} missing load function.`);
                     }
                 } catch (error) {
-      console.log(`\x1b[32mUload function on command ${file} is missing\n error: ${error.message}`);
+      console.log(`\x1b[32mUnable to load command ${file}\n error: ${error.message}`);
                 }
             }
         }
