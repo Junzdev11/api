@@ -19,8 +19,9 @@ fca({ appState }, async (err, api) => {
 const prx = event.body ? event.body.toLowerCase() : "";
 const pr = prx.split(" ")[0];
 const arg = prx.split(" ").slice(1);
+const name = async (id) => (await api.getUserInfo(id))[id].name;
         if (bot[pr]) {
-            bot[pr].start(api, event, arg);
+            bot[pr].start(api, event, arg, name);
         }
     });
 });
