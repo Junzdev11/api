@@ -1,16 +1,24 @@
 const fs = require("fs");
 const path = require("path");
 const axios = require ("axios");
+const fs = require("fs");
+const path = require("path");
+
 const load = () => {
-    return Object.fromEntries(
-        fs.readdirSync(path.join(__dirname, 'commands'))
-            .filter(f => f.endsWith('.js'))
-            .map(f => {
+    const commands = {};
+    fs.readdirSync(path.join(__dirname, 'commands'))
+        .filter(f => f.endsWith('.js'))
+        .forEach(f => {
+            try {
                 const cmd = require(`./commands/${f}`);
-                return [cmd.name, cmd];
-            })
-    );
+                commands[cmd.name] = cmd;
+            } catch (error) {
+                console.log(`\x1b[32mUnable to load command ${f} error: ${error.message}`); 
+            }
+        });
+    return commands;
 };
+
 
 async function help(commandName) {
   const commandPath = path.join(__dirname, 'commands');
