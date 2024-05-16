@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-
+const axios = require ("axios");
 const load = () => {
     return Object.fromEntries(
         fs.readdirSync(path.join(__dirname, 'commands'))
@@ -42,7 +42,14 @@ async function help(commandName) {
     return result;
   }
 }
-
+async function stream(url) {
+  try {
+    const response = await axios.get(url, { responseType: "stream" });
+    return response.data;
+  } catch (error) {
+    throw new Error(`${error.message}`);
+  }
+}
 
 module.exports = {
  load,
