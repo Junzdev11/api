@@ -1,8 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const axios = require ("axios");
-const fs = require("fs");
-const path = require("path");
+
 const load = async () => {
     const commands = {};
     try {
