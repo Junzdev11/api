@@ -53,5 +53,6 @@ async function stream(url) {
 
 module.exports = {
  load,
-help 
+help,
+stream
 };
