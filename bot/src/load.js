@@ -3,32 +3,28 @@ const path = require("path");
 const axios = require ("axios");
 
 const load = async () => {
-    const commands = {};
+  const cmds = {};
     try {
-        const files = await fs.readdir(path.join(__dirname, 'commands'));
-        for (const file of files) {
-            if (file.endsWith('.js')) {
-                try {
-                    const cmd = require(`./commands/${file}`);
-                    if (cmd.load) {
-                        commands[cmd.name] = cmd;
-                    } else {
-                        console.log(`\x1b[32mCommand ${cmd.name} missing load function.`);
-                    }
-                } catch (error) {
-      console.log(`\x1b[32mUnable to load command ${file}\n error: ${error.message}`);
-                }
-            }
-        }
+   const files = await fs.readdir(path.join(__dirname, 'commands'));
+ for (const file of files) {
+     if (file.endsWith('.js')) {
+    try {
+    const cmd = require(`./commands/${file}`);
+       if (cmd.load) {
+       cmds[cmd.name] = cmd;
+        } else {
+  console.log(`\x1b[32mCommand ${cmd.name} missing load function.`);
+      }
+  } catch (error) {
+   console.log(`\x1b[32mUnable to load command ${file}\n error: ${error.message}`);
+      }
+     }
+     }
     } catch (error) {
-        console.log(`\x1b[32m${error.message}`);
+   console.log(`\x1b[32m${error.message}`);
     }
-    return commands;
+    return cmds;
 };
-
-module.exports = load;
-
-
 
 async function help(commandName) {
   const commandPath = path.join(__dirname, 'commands');
