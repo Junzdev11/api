@@ -3,12 +3,10 @@ module.exports = {
   name: "ai",
 author: "Jun",
 description: "Ask an ai",
-  start: async (api, event, arg) => {
+  start: async (api, event, arg, name) => {
     const { messageID, threadID, senderID } = event; 
+const name = await name(senderID);
     try {
-      const info = await api.getUserInfo(senderID);
-      const name = info[senderID].name;
-
       const prm = arg.join(" ");    
       const r = await axios.post("https://test-ai-ihc6.onrender.com/api", {
         prompt: prm,
