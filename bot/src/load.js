@@ -3,21 +3,32 @@ const path = require("path");
 const axios = require ("axios");
 const fs = require("fs");
 const path = require("path");
-
-const load = () => {
+const load = async () => {
     const commands = {};
-    fs.readdirSync(path.join(__dirname, 'commands'))
-        .filter(f => f.endsWith('.js'))
-        .forEach(f => {
-            try {
-                const cmd = require(`./commands/${f}`);
-                commands[cmd.name] = cmd;
-            } catch (error) {
-                console.log(`\x1b[32mUnable to load command ${f} error: ${error.message}`); 
+    try {
+        const files = await fs.readdir(path.join(__dirname, 'commands'));
+        for (const file of files) {
+            if (file.endsWith('.js')) {
+                try {
+                    const cmd = require(`./commands/${file}`);
+                    if (cmd.load) {
+                        commands[cmd.name] = cmd;
+                    } else {
+                        console.log(`\x1b[32mCommand ${cmd.name} is missing the load function.`);
+                    }
+                } catch (error) {
+      console.log(`\x1b[32mUload function on command ${file} is missing\n error: ${error.message}`);
+                }
             }
-        });
+        }
+    } catch (error) {
+        console.log(`\x1b[32m${error.message}`);
+    }
     return commands;
 };
+
+module.exports = load;
+
 
 
 async function help(commandName) {
