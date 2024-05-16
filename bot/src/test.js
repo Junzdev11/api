@@ -4,11 +4,13 @@ const path = require('path');
 const load = require("./load");
 const appState = parse(fs.readFileSync(path.join(__dirname, 'appstate.json'), 'utf8'));
 const fca = require("./fca/index");
+
 fca({ appState }, async (err, api) => {
     if (err) {
         console.error(err);
         return;
     }
+
     api.listenMqtt(async (err, event) => {
         if (err) {
             console.error(err);
@@ -17,8 +19,10 @@ fca({ appState }, async (err, api) => {
 
         const { body } = event;
         const pr = body.split(" ")[0];
-        if (load[pr]) {
-            load[pr].start(api, event);
+        const bot = load();
+
+        if (bot[pr]) {
+            bot[pr].start(api, event);
         }
     });
 });
