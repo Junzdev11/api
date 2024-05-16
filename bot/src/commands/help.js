@@ -1,4 +1,4 @@
-const { help } = require('../utils');
+const { help } = require('../load');
 module.exports = {
     name: "help",
     author: "Jun",
