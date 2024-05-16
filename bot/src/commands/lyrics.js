@@ -4,7 +4,7 @@ module.exports = {
   name: "lyrics",
   author: "Jun",
   description: "Find song lyrics",
-  load async (arg, send) => {
+  load: async (arg, send) => {
     const srh = arg.join(' ');
     if (!srh) {
       send("Please add a title");
