@@ -1,24 +1,24 @@
 const axios = require("axios");
-const { stream } = require ("../utils");
+const { stream } = require ("../load");
 module.exports = {
   name: "lyrics",
 author: "Jun",
 description: "find lyrics song",
-  start: async (api, event, arg) => {
-    const { messageID, threadID } = event;
+  start: async ( arg, send) => {
+    
     const srh = arg.join(' ');
     if (!srh) {
-      api.sendMessage("Please add a title", threadID, messageID);
+      send("Please add a title");
     } else {
       try {
 const resp = await axios.get(`https://lyrist.vercel.app/api/${srh}`);
  const { title, artist, lyrics, image } = resp.data;
-        api.sendMessage({
+        send({
          body: `Title: ${title}\nArtist: ${artist}\n\n${lyrics}`,
           attachment: await stream(image),
-        }, threadID, messageID);
+        });
       } catch (e) {
-        api.sendMessage(e.message, threadID, messageID);
+        send(e.message);
       }
     }
   }
