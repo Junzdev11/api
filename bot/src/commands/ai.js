@@ -3,7 +3,7 @@ module.exports = {
   name: "ai",
 author: "Jun",
 description: "Ask an ai",
-   async (api, event, arg, name) => {
+  load: async (api, event, arg, name) => {
     const { messageID, threadID, senderID } = event; 
 const name = await name(senderID);
     try {
