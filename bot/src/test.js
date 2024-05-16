@@ -16,8 +16,8 @@ fca({ appState }, async (err, api) => {
             console.error(err);
             return;
         }
-var pr = (event.body ? event.body.toLowerCase() : "").split(" ")[0];
-var prx = event.body ? event.body.toLowerCase() : "";
+const prx = event.body ? event.body.toLowerCase() : "";
+const pr = prx.split(" ")[0];
 const arg = prx.split(" ").slice(1);
         if (bot[pr]) {
             bot[pr].start(api, event, arg);
