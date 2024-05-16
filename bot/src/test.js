@@ -5,8 +5,7 @@ const bot = require("./load").load();
 const express = require('express');
 const app = express();
 const appState = parse(fs.readFileSync(path.join(__dirname, 'appstate.json'), 'utf8'));
-const fca = require("./fca/index");
-fca({ appState }, async (err, api) => {
+require("./fca/index")({ appState }, async (err, api) => {
     if (err) {
         console.error(err);
         return;
