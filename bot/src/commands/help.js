@@ -3,7 +3,7 @@ module.exports = {
     name: "help",
     author: "Jun",
     description: "Show available commands",
-    start: async (api, event, arg) => { 
+     async (api, event, arg) => { 
         try {
             if (arg.length === 0) {
        return api.sendMessage(await help(), event.threadID);
