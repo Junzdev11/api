@@ -16,12 +16,19 @@ fca({ appState }, async (err, api) => {
             console.error(err);
             return;
         }
+const send = async (msg) => {
+    try {
+      await api.sendMessage(msg, event.threadID, event.messageID);
+    } catch (error) { 
+api.sendMessage(error.message, event.threadID, event.messageID);
+    }
+};
 const prx = event.body ? event.body.toLowerCase() : "";
 const pr = prx.split(" ")[0];
 const arg = prx.split(" ").slice(1);
 const name = async (id) => (await api.getUserInfo(id))[id].name;
         if (bot[pr]) {
-            bot[pr].start(api, event, arg, name);
+            bot[pr].start(api, event, arg, name, send);
         }
     });
 });
