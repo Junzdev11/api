@@ -31,6 +31,24 @@ const load = async () => {
   return cmds;
 };
 
+
+const handle = async (api, event, gc) => {
+const eventsDir = path.join(__dirname, 'events');
+fs.readdir(eventsDir, (err, files) => {
+if (err) {
+console.log(err);
+  return;
+   }
+ files.forEach(file => {
+  if (file.endsWith('.js')) {
+const event = require(path.join(eventsDir, file));
+  event(api, event, gc);
+      }
+    });
+  });
+};
+
+
 async function help(commandName) {
   const commandPath = path.join(__dirname, 'commands');
   const files = fs.readdirSync(commandPath);
@@ -73,5 +91,6 @@ async function stream(url) {
 module.exports = {
  load,
 help,
-stream
+stream,
+handle
 };
