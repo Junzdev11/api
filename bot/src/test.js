@@ -17,11 +17,16 @@ require("./fca/index")({ appState }, async (err, api) => {
         }
 const send = async (msg) => {
       await api.sendMessage(msg, event.threadID, event.messageID);
-    }
+    };
+
 const prx = event.body ? event.body.toLowerCase() : "";
 const pr = prx.split(" ")[0];
 const arg = prx.split(" ").slice(1);
-const name = async (id) => (await api.getUserInfo(id))[id].name;
+
+const name = async (id) => {
+  const info = await api.getUserInfo(id);
+    return info[id].name;
+};
         if (bot[pr]) {
             bot[pr].load({api, event, arg, name, send});
         }
