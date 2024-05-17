@@ -2,7 +2,7 @@ const path = require("path");
 const axios = require ("axios");
 const fs = require('fs').promises;
 const path = require('path');
-const load = async () => {
+const handle_cmd = async () => {
   const cmds = {};
   try {
     const files = await fs.readdir(path.join(__dirname, 'commands'));
@@ -32,7 +32,7 @@ const load = async () => {
 };
 
 
-const handle = async (api, event, gc) => {
+const handle_event = async (api, event, gc) => {
 const eventsDir = path.join(__dirname, 'events');
 fs.readdir(eventsDir, (err, files) => {
 if (err) {
@@ -89,8 +89,8 @@ async function stream(url) {
 }
 
 module.exports = {
- load,
+ handle_cmd,
 help,
 stream,
-handle
+handle_event
 };
