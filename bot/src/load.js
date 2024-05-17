@@ -1,29 +1,34 @@
-const fs = require("fs");
 const path = require("path");
 const axios = require ("axios");
-
+const fs = require('fs').promises;
+const path = require('path');
 const load = async () => {
   const cmds = {};
-    try {
-   const files = await fs.readdir(path.join(__dirname, 'commands'));
- for (const file of files) {
-     if (file.endsWith('.js')) {
-    try {
-    const cmd = require(`./commands/${file}`);
-       if (cmd.load) {
-       cmds[cmd.name] = cmd;
-        } else {
-  console.log(`\x1b[32mCommand ${cmd.name} missing load function.`);
+  try {
+    const files = await fs.readdir(path.join(__dirname, 'commands'));
+    for (const file of files) {
+      if (file.endsWith('.js')) {
+        try {
+          const cmd = require(`./commands/${file}`);
+          if (cmd.load) {
+            cmds[cmd.name] = cmd;
+            if (cmd.otherName && Array.isArray(cmd.otherName)) {
+              for (const alias of cmd.otherName) {
+                cmds[alias] = cmd;
+              }
+            }
+          } else {
+            console.log(`\x1b[32mCommand ${cmd.name} missing load function.`);
+          }
+        } catch (error) {
+          console.log(`\x1b[32mUnable to load command ${file}\n error: ${error.message}`);
+        }
       }
-  } catch (error) {
-   console.log(`\x1b[32mUnable to load command ${file}\n error: ${error.message}`);
-      }
-     }
-     }
-    } catch (error) {
-   console.log(`\x1b[32m${error.message}`);
     }
-    return cmds;
+  } catch (error) {
+    console.log(`\x1b[32m${error.message}`);
+  }
+  return cmds;
 };
 
 async function help(commandName) {
