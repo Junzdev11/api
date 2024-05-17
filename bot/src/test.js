@@ -1,7 +1,7 @@
 const { parse } = JSON;
 const fs = require('fs');
 const path = require('path');
-const bot = require("./load").load();
+const bot = require("./load").handle_cmd();
 const { handle_event } = require("./load");
 const express = require('express');
 const app = express();
