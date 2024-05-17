@@ -22,21 +22,16 @@ const send = async (msg) => {
 const gc = {
 auto_greet: true
 };
-const eventss = await handle_event(api, event, gc);
- if (eventss) {
-   return;
-    }
-
-const prx = event.body ? event.body.toLowerCase() : "";
-const pr = prx.split(" ")[0];
-const arg = prx.split(" ").slice(1);
-
+if (await handle_event(api, event, gc)) {}
+var prx = event.body ? event.body.toLowerCase() : "";
+var pr = prx.split(" ")[0];
+var arg = prx.split(" ").slice(1);
 const name = async (id) => {
-  const info = await api.getUserInfo(id);
-    return info[id].name;
+const info = await api.getUserInfo(id);
+  return info[id].name;
 };
-        if (bot[pr]) {
-            bot[pr].load({api, event, arg, name, send});
+   if (bot[pr]) {
+  bot[pr].load({api, event, arg, name, send});
         }
     });
 });
