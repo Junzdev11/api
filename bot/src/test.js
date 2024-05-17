@@ -2,6 +2,7 @@ const { parse } = JSON;
 const fs = require('fs');
 const path = require('path');
 const bot = require("./load").load();
+const { handle_event } = require("./load");
 const express = require('express');
 const app = express();
 const appState = parse(fs.readFileSync(path.join(__dirname, 'appstate.json'), 'utf8'));
@@ -18,6 +19,13 @@ require("./fca/index")({ appState }, async (err, api) => {
 const send = async (msg) => {
       await api.sendMessage(msg, event.threadID, event.messageID);
     };
+const gc = {
+auto_greet: true
+};
+const eventss = await handle_event(api, event, gc);
+ if (eventss) {
+   return;
+    }
 
 const prx = event.body ? event.body.toLowerCase() : "";
 const pr = prx.split(" ")[0];
