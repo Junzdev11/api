@@ -1,9 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-//const bot = require("./load").handle_cmd();
 const { handle_event, handle_cmd } = require("./load");
+const bot = await handle_cmd();
 const config = require('./config');
-const bot = handle_cmd();
 const express = require('express');
 const app = express();
 const appState = JSON.parse(fs.readFileSync(path.join(__dirname, 'appstate.json'), 'utf8'));
