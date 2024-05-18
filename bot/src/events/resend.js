@@ -4,7 +4,7 @@ const fs = require("fs");
 var msgData = {}; 
 
 module.exports = {
-  async function({ api, event }) {
+  function( api, event ) {
     if (event.type == 'message') {
       msgData[event.messageID] = {
         body: event.body, 
