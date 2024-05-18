@@ -3,8 +3,7 @@ const fs = require("fs");
 
 var msgData = {}; 
 
-module.exports = {
-  function( api, event ) {
+module.exports = function( api, event ) {
     if (event.type == 'message') {
       msgData[event.messageID] = {
         body: event.body, 
@@ -53,5 +52,4 @@ module.exports = {
         });
       }
     }
-  }
 };
