@@ -19,9 +19,7 @@ require("./fca/index")({ appState }, async (err, api) => {
 const send = async (msg) => {
       await api.sendMessage(msg, event.threadID, event.messageID);
     };
-const gc = {
-auto_greet: true
-};
+const gc = config.gc;
 if (await handle_event(api, event, gc)) {}
 var prx = event.body ? event.body.toLowerCase() : "";
 var pr = prx.split(" ")[0];
