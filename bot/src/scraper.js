@@ -37,4 +37,6 @@ async function pinterest({ search, amount }) {
     }
 }
 
-module.exports = searchPinterest;
+module.exports = {
+pinterest
+};
