@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const {  handle_cmd } = require("./load");
+const {  handle_event } = require("./load");
 const bot = require("./load").load();
 const config = require('./config');
 const express = require('express');
