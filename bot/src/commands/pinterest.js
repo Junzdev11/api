@@ -4,7 +4,7 @@ module.exports = {
     name: "pinterest",
     author: "Jun",
     description: "Find image on Pinterest",
-    load: async ({ event, api, arg }) => {
+    load: async (event, api, arg) => {
         const { threadID, messageID } = event;
         const amount = parseInt(arg[1]);
         const search = arg.slice(2).join(" ");
