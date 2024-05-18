@@ -29,7 +29,7 @@ const info = await api.getUserInfo(id);
   return info[id].name;
 };
    if (bot[pr]) {
-  bot[pr].load({api, event, arg, name, send});
+  bot[pr].load(api, event, arg, name, send);
         }
     });
 });
