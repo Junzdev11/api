@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 //const bot = require("./load").handle_cmd();
 const { handle_event, handle_cmd } = require("./load");
+const config = require('./config');
 const bot = handle_cmd();
 const express = require('express');
 const app = express();
